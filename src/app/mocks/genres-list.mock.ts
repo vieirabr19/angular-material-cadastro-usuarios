@@ -1,6 +1,6 @@
-import { TGenresResponse } from "../types/genres-reponse.type";
+import { TGenresListResponse } from "../types/genres-list-reponse.type";
 
-export const GenresListMock: TGenresResponse = [
+export const GenresListMock: TGenresListResponse = [
         { id: 1, description: 'Rock' },
         { id: 2, description: 'Pop' },
         { id: 3, description: 'Jazz' },

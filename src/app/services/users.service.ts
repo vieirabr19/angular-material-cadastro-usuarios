@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { TUserResponse } from '../types/users-reponse.type';
+import { TUserListResponse } from '../types/users-list-reponse.type';
 import { UserListMock } from '../mocks/users-list.mock';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { UserListMock } from '../mocks/users-list.mock';
 export class UsersService {
   constructor() { }
 
-  getUsers(): Observable<TUserResponse>{
+  getUsers(): Observable<TUserListResponse>{
     return new Observable(observer => {
       setTimeout(() => {
         observer.next(UserListMock);

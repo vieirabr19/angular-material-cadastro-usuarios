@@ -1,6 +1,6 @@
-import { TBrazilianStatesResponse } from "../types/brazilian-states-reponse.type";
+import { TStatesListResponse } from "../types/states-list-reponse.type";
 
-export const BrazilianStatesListMock: TBrazilianStatesResponse = [
+export const BrazilianStatesListMock: TStatesListResponse = [
         { id: 12, descricao: 'Acre', descricaoContraida: 'AC' },
         { id: 27, descricao: 'Alagoas', descricaoContraida: 'AL' },
         { id: 16, descricao: 'Amapá', descricaoContraida: 'AP' },

@@ -1,6 +1,6 @@
-import { TUserResponse } from "../types/users-reponse.type";
+import { TUserListResponse } from "../types/users-list-reponse.type";
 
-export const UserListMock: TUserResponse = [
+export const UserListMock: TUserListResponse = [
     {
         name: 'Usuário 1',
         username: 'usuario1',

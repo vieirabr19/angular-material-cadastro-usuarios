@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { TBrazilianStatesResponse } from '../types/brazilian-states-reponse.type';
+import { TStatesListResponse } from '../types/states-list-reponse.type';
 import { BrazilianStatesListMock } from '../mocks/brazilian-states-list.mock';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { BrazilianStatesListMock } from '../mocks/brazilian-states-list.mock';
 })
 export class BrazilianStatesService {
 
-  getStates(): Observable<TBrazilianStatesResponse> { 
+  getStates(): Observable<TStatesListResponse> { 
     return new Observable(observer => {
       setTimeout(() => {
         observer.next(BrazilianStatesListMock);

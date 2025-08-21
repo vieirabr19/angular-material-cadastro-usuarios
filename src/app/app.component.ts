@@ -4,9 +4,9 @@ import { UsersService } from './services/users.service';
 import { GenresService } from './services/genres.service';
 import { BrazilianStatesService } from './services/brazilian-states.service';
 
-import { TUserResponse } from './types/users-reponse.type';
-import { TGenresResponse } from './types/genres-reponse.type';
-import { TBrazilianStatesResponse } from './types/brazilian-states-reponse.type';
+import { TUserListResponse } from './types/users-list-reponse.type';
+import { TGenresListResponse } from './types/genres-list-reponse.type';
+import { TStatesListResponse } from './types/states-list-reponse.type';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +14,9 @@ import { TBrazilianStatesResponse } from './types/brazilian-states-reponse.type'
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  usersList: TUserResponse = [];
-  genresList: TGenresResponse = [];
-  statesList: TBrazilianStatesResponse = [];
+  usersList: TUserListResponse = [];
+  genresList: TGenresListResponse = [];
+  statesList: TStatesListResponse = [];
 
   constructor(
     private readonly _userService: UsersService,
