@@ -1,0 +1,15 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__row{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+
+    mat-form-field{
+      width: 100%;
+    }
+  }
+}
