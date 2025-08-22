@@ -5,14 +5,20 @@ import { AngularMaterialModule } from "../angular-material.module";
 import { DirectivesModule } from "../directives/directives.module";
 import { PipesModule } from "../pipes/pipes.module";
 
+import { UsersCardListComponent } from './users-card-list/users-card-list.component';
+
 @NgModule({
-    declarations: [],
+    declarations: [
+    UsersCardListComponent
+  ],
     imports: [
         FormsModule,
         AngularMaterialModule,
         DirectivesModule,
         PipesModule,
     ],
-    exports: []
+    exports: [
+        UsersCardListComponent
+    ]
 })
 export class ComponentsModule {}
