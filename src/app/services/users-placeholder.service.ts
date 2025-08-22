@@ -8,7 +8,6 @@ import { TUserPlaceholderListResponse } from '../types/users-list-placeholder-re
   providedIn: 'root'
 })
 export class UsersPlaceholderService {
-
   constructor(
     private readonly _http: HttpClient
   ) { }

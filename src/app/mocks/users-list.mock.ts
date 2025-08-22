@@ -4,7 +4,7 @@ export const UserListMock: TUserListResponse = [
     {
         name: 'Usuário 1',
         username: 'usuario1',
-        email: 'usuario1@example.com',
+        email: 'Sincere@april.biz',
         password: 'senha1',
         birthDate: '01/12/1990',
         state: 13,

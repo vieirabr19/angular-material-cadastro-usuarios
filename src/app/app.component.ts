@@ -40,8 +40,6 @@ export class AppComponent implements OnInit {
     if(userFound){
       this.userSelectedIndex = userIndex;
       this.userSelected = structuredClone(userFound);
-
-      console.log(this.userSelected);
     }
   }
   
@@ -55,5 +53,10 @@ export class AppComponent implements OnInit {
 
   private getBrazilianStates() {
     this._brazilianStatesService.getStates().subscribe(states => this.statesList = states);
+  }
+
+  listaOriginal(){
+    console.log('usersList:', this.usersList);
+    console.log('userSelected:', this.userSelected);
   }
 }
