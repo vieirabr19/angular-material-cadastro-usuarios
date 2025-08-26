@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const arrModules = [
   MatInputModule,
@@ -16,6 +17,7 @@ const arrModules = [
   MatButtonModule,
   MatCheckboxModule,
   MatCardModule,
+  MatProgressBarModule,
 ];
 
 @NgModule({

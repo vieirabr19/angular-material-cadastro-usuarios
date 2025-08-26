@@ -1,25 +1,29 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { TUserListResponse } from '../../types/users-list-reponse.type';
 import { TGenresListResponse } from '../../types/genres-list-reponse.type';
 import { TStatesListResponse } from '../../types/states-list-reponse.type';
 import { IUser } from '../../interfaces/user/user-interface';
+
+import { getPasswordStrength, PasswordStrength } from '../../utils/password-strength.util';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss'
 })
-export class UserFormComponent implements OnInit, OnChanges {
+export class UserFormComponent implements OnChanges {
+  passwordStrength: PasswordStrength = getPasswordStrength('');
+
   @Input() userSelected: IUser = {} as IUser;
   @Input() genresList: TGenresListResponse = [];
   @Input() statesList: TStatesListResponse = [];
 
-  ngOnInit() {
-    
+  ngOnChanges(changes: SimpleChanges) {
+    const changeUserSelected = changes['userSelected'];
+    changeUserSelected && this.onPasswordChange(this.userSelected.password);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('changes', changes);
+  onPasswordChange(password: string){
+    this.passwordStrength = getPasswordStrength(password);
   }
 }
