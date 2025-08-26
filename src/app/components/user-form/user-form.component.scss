@@ -13,3 +13,21 @@
     }
   }
 }
+
+.mat-weak-password {
+  ::ng-deep &.mat-mdc-progress-bar {
+    --mdc-linear-progress-active-indicator-color: #f84633;
+  }
+}
+
+.mat-medium-password {
+  ::ng-deep &.mat-mdc-progress-bar {
+    --mdc-linear-progress-active-indicator-color: #f3b634;
+  }
+}
+
+.mat-strong-password {
+  ::ng-deep &.mat-mdc-progress-bar {
+    --mdc-linear-progress-active-indicator-color: #32c434;
+  }
+}

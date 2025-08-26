@@ -7,6 +7,7 @@ import { PipesModule } from "../pipes/pipes.module";
 
 import { UsersCardListComponent } from './users-card-list/users-card-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -14,11 +15,12 @@ import { UserFormComponent } from './user-form/user-form.component';
     UserFormComponent
   ],
     imports: [
-        FormsModule,
-        AngularMaterialModule,
-        DirectivesModule,
-        PipesModule,
-    ],
+    FormsModule,
+    AngularMaterialModule,
+    DirectivesModule,
+    PipesModule,
+    BrowserAnimationsModule
+],
     exports: [
         UsersCardListComponent,
         UserFormComponent

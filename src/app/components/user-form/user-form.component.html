@@ -4,7 +4,7 @@
       <div class="user-form__row">
         <mat-form-field>
           <mat-label>Nome</mat-label>
-          <input type="text" name="nome" required matInput [(ngModel)]="userSelected.name">
+          <input type="text" name="nome" required matInput [(ngModel)]="userSelected.name" />
           <mat-error>O <strong>Nome</strong> é obrigatório.</mat-error>
         </mat-form-field>
       </div>
@@ -57,6 +57,35 @@
 
           @if(!emailControl.hasError('required') && !emailControl.hasError('invalidEmail') && emailControl.hasError('invalidUserEmail')){
             <mat-error>Este <strong>E-mail</strong> já está sendo utilizado.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="user-form__row">
+        <mat-form-field>
+          <mat-label>Senha</mat-label>
+          <input 
+            type="password" 
+            name="password" 
+            required 
+            matInput 
+            [(ngModel)]="userSelected.password" 
+            (ngModelChange)="onPasswordChange($event)"
+            #passwordControl="ngModel"
+            appPasswordStrengthValidator
+          />
+
+          <mat-progress-bar mode="determinate" [value]="passwordStrength.value" [color]="passwordStrength.color"></mat-progress-bar>
+          
+          @if(passwordControl.valid){
+            <mat-hint>Sua <strong>Senha</strong> está {{passwordStrength.label}}.</mat-hint>
+          }
+
+          @if(passwordControl.hasError('required')){
+            <mat-error>A <strong>Senha</strong> é obrigatória.</mat-error>
+          }
+
+          @if(passwordControl.hasError('invalidPasswordStrength')){
+            <mat-error><strong>Senha</strong> {{passwordStrength.label}}. Use uma senha mais forte.</mat-error>
           }
         </mat-form-field>
       </div>
