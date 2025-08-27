@@ -7,7 +7,7 @@ import { BrazilianStatesService } from './services/brazilian-states.service';
 import { TUserListResponse } from './types/users-list-reponse.type';
 import { TGenresListResponse } from './types/genres-list-reponse.type';
 import { TStatesListResponse } from './types/states-list-reponse.type';
-import { IUser } from './interfaces/user/user-interface';
+import { IUser } from './interfaces/user/user.interface';
 
 @Component({
   selector: 'app-root',
