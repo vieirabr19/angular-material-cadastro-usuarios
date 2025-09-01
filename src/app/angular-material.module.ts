@@ -10,6 +10,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const arrModules = [
   MatInputModule,
@@ -20,7 +24,11 @@ const arrModules = [
   MatCheckboxModule,
   MatCardModule,
   MatProgressBarModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatSelectModule,
+  MatTableModule,
+  MatGridListModule,
+  MatAutocompleteModule,
 ];
 
 @NgModule({
@@ -28,7 +36,7 @@ const arrModules = [
   exports: arrModules,
   providers: [
     provideNativeDateAdapter(),
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }
   ],
 })
 export class AngularMaterialModule { }

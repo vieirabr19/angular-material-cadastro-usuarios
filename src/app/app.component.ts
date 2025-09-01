@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from './services/users.service';
 import { GenresService } from './services/genres.service';
-import { BrazilianStatesService } from './services/brazilian-states.service';
+import { StatesService } from './services/states.service';
 
 import { TUserListResponse } from './types/users-list-reponse.type';
 import { TGenresListResponse } from './types/genres-list-reponse.type';
 import { TStatesListResponse } from './types/states-list-reponse.type';
 import { IUser } from './interfaces/user/user.interface';
+import { IMusic } from './interfaces/user/music.interface';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,8 @@ import { IUser } from './interfaces/user/user.interface';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+  userSelectedIndex: number | undefined;  
   userSelected: IUser = {} as IUser;
-  userSelectedIndex: number | undefined;
-
   usersList: TUserListResponse = [];
   genresList: TGenresListResponse = [];
   statesList: TStatesListResponse = [];
@@ -25,13 +25,13 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly _userService: UsersService,
     private readonly _genresService: GenresService,
-    private readonly _brazilianStatesService: BrazilianStatesService,
+    private readonly _statesService: StatesService,
   ){}
 
   ngOnInit() {
     this.getUsers();
     this.getGenres();
-    this.getBrazilianStates();
+    this.getStates();
   }
 
   onUserSelected(userIndex: number){
@@ -42,6 +42,17 @@ export class AppComponent implements OnInit {
       this.userSelected = structuredClone(userFound);
     }
   }
+
+  onSaveUser() {
+    const payload = {
+      ...this.userSelected,
+      musics: this.userSelected.musics.map(({filteredGenresList, ...music}): IMusic => music)
+    };
+
+    console.log('usersList:', this.usersList);    
+    console.log('userSelected:', this.userSelected);
+    console.log('payload:', payload);
+  }
   
   private getUsers() {
     this._userService.getUsers().subscribe(users => this.usersList = users);
@@ -51,12 +62,7 @@ export class AppComponent implements OnInit {
     this._genresService.getGenres().subscribe(genres => this.genresList = genres);
   }
 
-  private getBrazilianStates() {
-    this._brazilianStatesService.getStates().subscribe(states => this.statesList = states);
-  }
-
-  listaOriginal(){
-    console.log('usersList:', this.usersList);
-    console.log('userSelected:', this.userSelected);
+  private getStates() {
+    this._statesService.getStates().subscribe(states => this.statesList = states);
   }
 }

@@ -1,5 +1,5 @@
 import zxcvbn from 'zxcvbn';
-import { translateSuggestion, translateWarning } from './password-strength-.translations.util';
+import { translateSuggestion, translateWarning } from './password-strength-translations.util';
 
 export type PasswordStrength = {
   value: number;   // porcentagem (0–100)

@@ -3,10 +3,10 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { TGenresListResponse } from '../../types/genres-list-reponse.type';
 import { TStatesListResponse } from '../../types/states-list-reponse.type';
 import { IUser } from '../../interfaces/user/user.interface';
+import { IMusicForm } from '../../interfaces/user/music.interface';
 
 import { getPasswordStrength, PasswordStrength } from '../../utils/password-strength.util';
 import { convertDatePtBrToDateObj } from '../../utils/convert-date-pt-br-to-date-obj.util';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { convertDateObjToDatePtBr } from '../../utils/convert-date-obj-to-date-pt-br.util';
 
 @Component({
@@ -15,10 +15,13 @@ import { convertDateObjToDatePtBr } from '../../utils/convert-date-obj-to-date-p
   styleUrl: './user-form.component.scss',
 })
 export class UserFormComponent implements OnInit, OnChanges {
-  passwordStrength: PasswordStrength = getPasswordStrength('');
   minDate: Date | null = null;
   maxDate: Date | null = null;
   dateValue: Date | null = null;
+  
+  passwordStrength: PasswordStrength = getPasswordStrength('');
+  displayedColumns: string[] = ['title', 'band', 'genre', 'favorite'];
+  genresListFiltered: TGenresListResponse = [];
 
   @Input() userSelected: IUser = {} as IUser;
   @Input() genresList: TGenresListResponse = [];
@@ -27,14 +30,33 @@ export class UserFormComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.setMinAndMaxDate();
   }
-
-  ngOnChanges(changes: SimpleChanges) {
+  
+  ngOnChanges(changes: SimpleChanges) {    
     const changeUserSelected = changes['userSelected'];
+    const isUserSelectedLength = Object.keys(this.userSelected).length;
+    
+    if (changeUserSelected && isUserSelectedLength) {
+      this.userSelected.musics.forEach(music => music.filteredGenresList = [...this.genresList]);
 
-    if (changeUserSelected) {
       this.onPasswordChange(this.userSelected.password);
-      this.setBirthDateToDatepicker(this.userSelected.birthDate)
+      this.setBirthDateToDatepicker(this.userSelected.birthDate);
     }
+  }
+
+  onDisplayNameGenre(genreId: number): string {
+    const genreFound = this.genresList.find(genre => genre.id === genreId);
+    return genreFound ? genreFound?.description : '';
+  }
+
+  onFilterGenres(text: string, element: IMusicForm) {
+    if(typeof text === 'number') return;
+    
+    const searchTerm = (text || '').toLowerCase().trim();
+    element.filteredGenresList = this.genresList.filter(genre => genre.description.toLowerCase().includes(searchTerm));
+  }
+
+  onGenreSelected(genreId: number,  music: IMusicForm){
+    music.genre = genreId;
   }
 
   onPasswordChange(password: string) {
