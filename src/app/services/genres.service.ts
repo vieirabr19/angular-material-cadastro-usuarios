@@ -13,7 +13,7 @@ export class GenresService {
       setTimeout(() => {
         observer.next(GenresListMock);
         observer.complete();
-      }, 3000);
+      }, 300);
     });
   }
 }

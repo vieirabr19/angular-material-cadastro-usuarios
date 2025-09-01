@@ -1,4 +1,4 @@
-import { IMusic } from "./music.interface"
+import { IMusicForm } from "./music.interface"
 
 export interface IUser {
   name: string;
@@ -7,5 +7,5 @@ export interface IUser {
   password: string;
   birthDate: string;
   state: number;
-  musics: IMusic[];
+  musics: IMusicForm[];
 }
