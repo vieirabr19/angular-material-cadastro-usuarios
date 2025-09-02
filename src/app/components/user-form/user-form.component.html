@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content>
-    <form class="user-form" #userForm="ngForm" appPasswordConfirmationValidator>
+    <form class="user-form" #userForm="ngForm" (ngSubmit)="onSalveUser(userForm)" appPasswordConfirmationValidator>
       <div class="user-form__row">
         <mat-form-field>
           <mat-label>Nome</mat-label>
@@ -154,7 +154,7 @@
               <td mat-cell *matCellDef="let element; let i = index"> 
                 <mat-form-field>
                   <mat-label>Título</mat-label>
-                  <input type="text" [name]="'titulo_' + i" required matInput [(ngModel)]="element.title" />
+                  <input type="text" [name]="'musica_' + i" required matInput [(ngModel)]="element.title" />
 
                   <mat-error>O <strong>Título</strong> é obrigatório.</mat-error>
                 </mat-form-field>
@@ -210,6 +210,9 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
         </div>
+      </div>
+      <div class="user-form__row justify-content-end">
+        <button type="submit" mat-raised-button color="primary">Salvar</button>
       </div>
     </form>
   </mat-card-content>

@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { TGenresListResponse } from '../../types/genres-list-reponse.type';
 import { TStatesListResponse } from '../../types/states-list-reponse.type';
@@ -8,6 +9,7 @@ import { IMusicForm } from '../../interfaces/user/music.interface';
 import { getPasswordStrength, PasswordStrength } from '../../utils/password-strength.util';
 import { convertDatePtBrToDateObj } from '../../utils/convert-date-pt-br-to-date-obj.util';
 import { convertDateObjToDatePtBr } from '../../utils/convert-date-obj-to-date-pt-br.util';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-user-form',
@@ -18,7 +20,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   minDate: Date | null = null;
   maxDate: Date | null = null;
   dateValue: Date | null = null;
-  
+
   passwordStrength: PasswordStrength = getPasswordStrength('');
   displayedColumns: string[] = ['title', 'band', 'genre', 'favorite'];
   genresListFiltered: TGenresListResponse = [];
@@ -27,14 +29,18 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Input() genresList: TGenresListResponse = [];
   @Input() statesList: TStatesListResponse = [];
 
+  @Output('onFormSubmited') onFormSubmitedEmitt = new EventEmitter<void>();
+
+  constructor( private _el: ElementRef ) {}
+
   ngOnInit() {
     this.setMinAndMaxDate();
   }
-  
-  ngOnChanges(changes: SimpleChanges) {    
+
+  ngOnChanges(changes: SimpleChanges) {
     const changeUserSelected = changes['userSelected'];
     const isUserSelectedLength = Object.keys(this.userSelected).length;
-    
+
     if (changeUserSelected && isUserSelectedLength) {
       this.userSelected.musics.forEach(music => music.filteredGenresList = [...this.genresList]);
 
@@ -49,13 +55,13 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   onFilterGenres(text: string, element: IMusicForm) {
-    if(typeof text === 'number') return;
-    
+    if (typeof text === 'number') return;
+
     const searchTerm = (text || '').toLowerCase().trim();
     element.filteredGenresList = this.genresList.filter(genre => genre.description.toLowerCase().includes(searchTerm));
   }
 
-  onGenreSelected(genreId: number,  music: IMusicForm){
+  onGenreSelected(genreId: number, music: IMusicForm) {
     music.genre = genreId;
   }
 
@@ -65,6 +71,23 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   onDateChange(date: Date) {
     this.userSelected.birthDate = convertDateObjToDatePtBr(date);
+  }
+
+  onSalveUser(form: NgForm) {
+    if(form.invalid){
+      this.onFocusControlInvalid(form);
+      return;
+    }
+
+    this.onFormSubmitedEmitt.emit();
+  }
+
+  onFocusControlInvalid(form: NgForm) {
+    const invalidControlName = Object.keys(form.controls).find(name => form.controls[name]?.invalid);
+    if(!invalidControlName) return;
+
+    const invalidControl = this._el.nativeElement.querySelector(`[name="${invalidControlName}"]`) as HTMLElement | null;
+    invalidControl?.focus();
   }
 
   private setMinAndMaxDate() {
