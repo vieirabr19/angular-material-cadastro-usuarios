@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const arrModules = [
   MatInputModule,
@@ -29,6 +30,7 @@ const arrModules = [
   MatTableModule,
   MatGridListModule,
   MatAutocompleteModule,
+  MatDialogModule,
 ];
 
 @NgModule({

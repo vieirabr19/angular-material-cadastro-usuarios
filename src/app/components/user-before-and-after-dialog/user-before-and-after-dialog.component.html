@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>Resumo das alterações</h2>
+
+<div class="card-resumo">
+  <header class="card-resumo__header">
+    <div>Antes</div>
+    <div>Depois</div>
+  </header>
+
+  <mat-dialog-content class="mat-typography">
+    <main class="card-resumo__main">
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': originalUser.name !== updateUser.name}"><strong>Nome:</strong> {{originalUser.name}}</div>
+        <div [ngClass]="{'diff-after': originalUser.name !== updateUser.name}"><strong>Nome:</strong> {{updateUser.name}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': originalUser.username !== updateUser.username}"><strong>Usuário:</strong> {{originalUser.username}}</div>
+        <div [ngClass]="{'diff-after': originalUser.username !== updateUser.username}"><strong>Usuário:</strong> {{updateUser.username}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': originalUser.email !== updateUser.email}"><strong>E-mail:</strong> {{originalUser.email}}</div>
+        <div [ngClass]="{'diff-after': originalUser.email !== updateUser.email}"><strong>E-mail:</strong> {{updateUser.email}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': originalUser.password !== updateUser.password}"><strong>Senha:</strong> {{originalUser.password}}</div>
+        <div [ngClass]="{'diff-after': originalUser.password !== updateUser.password}"><strong>Senha:</strong> {{updateUser.password}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': originalUser.birthDate !== updateUser.birthDate}"><strong>Data de nascimento:</strong> {{originalUser.birthDate}}</div>
+        <div [ngClass]="{'diff-after': originalUser.birthDate !== updateUser.birthDate}"><strong>Data de nascimento:</strong> {{updateUser.birthDate}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': originalUser.state !== updateUser.state}"><strong>Estado:</strong> {{originalUser.state | stateDescription}}</div>
+        <div [ngClass]="{'diff-after': originalUser.state !== updateUser.state}"><strong>Estado:</strong> {{updateUser.state | stateDescription}}</div>
+      </div>
+      @for(music of originalUser.musics; let i = $index; track i){
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': music.title !== updateUser.musics[i].title}"><strong>Música {{i + 1}} - Título:</strong> {{music.title}}</div>
+        <div [ngClass]="{'diff-after': music.title !== updateUser.musics[i].title}"><strong>Música {{i + 1}} - Título:</strong> {{updateUser.musics[i].title}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': music.band !== updateUser.musics[i].band}"><strong>Música {{i + 1}} - Banda:</strong> {{music.band}}</div>
+        <div [ngClass]="{'diff-after': music.band !== updateUser.musics[i].band}"><strong>Música {{i + 1}} - Banda:</strong> {{updateUser.musics[i].band}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': music.genre !== updateUser.musics[i].genre}"><strong>Música {{i + 1}} - Gênero:</strong> {{music.genre | genreDescription}}</div>
+        <div [ngClass]="{'diff-after': music.genre !== updateUser.musics[i].genre}"><strong>Música {{i + 1}} - Gênero:</strong> {{updateUser.musics[i].genre | genreDescription}}</div>
+      </div>
+      <div class="card-resumo__main__row">
+        <div [ngClass]="{'diff-before': music.isFavorite !== updateUser.musics[i].isFavorite}"><strong>Música {{i + 1}} - Favorita:</strong> {{music.isFavorite | favoriteDescription}}</div>
+        <div [ngClass]="{'diff-after': music.isFavorite !== updateUser.musics[i].isFavorite}"><strong>Música {{i + 1}} - Favorita:</strong> {{updateUser.musics[i].isFavorite | favoriteDescription}}</div>
+      </div>
+      }
+    </main>
+  </mat-dialog-content>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close color="warn">Cancelar</button>
+  <button mat-flat-button mat-dialog-close color="primary">Confirmar</button>
+</mat-dialog-actions>

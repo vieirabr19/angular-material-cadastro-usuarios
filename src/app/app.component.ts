@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MatDialog } from '@angular/material/dialog';
+
 import { UsersService } from './services/users.service';
 import { GenresService } from './services/genres.service';
 import { StatesService } from './services/states.service';
@@ -9,6 +11,8 @@ import { TGenresListResponse } from './types/genres-list-reponse.type';
 import { TStatesListResponse } from './types/states-list-reponse.type';
 import { IUser } from './interfaces/user/user.interface';
 import { IMusic } from './interfaces/user/music.interface';
+
+import { UserBeforeAndAfterDialogComponent } from './components/user-before-and-after-dialog/user-before-and-after-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +30,7 @@ export class AppComponent implements OnInit {
     private readonly _userService: UsersService,
     private readonly _genresService: GenresService,
     private readonly _statesService: StatesService,
+    private dialog: MatDialog
   ){}
 
   ngOnInit() {
@@ -43,6 +48,18 @@ export class AppComponent implements OnInit {
     }
   }
 
+  onFormSubmited() {
+    if(!this.userSelectedIndex) return;
+
+    const originalUser = this.usersList[this.userSelectedIndex];
+    const updateUser = {
+      ...this.userSelected,
+      musics: this.userSelected.musics.map(({filteredGenresList, ...music}): IMusic => music)
+    };
+
+    this.userBeforeAndAfterDialog(originalUser, updateUser);
+  }
+
   onSaveUser() {
     const payload = {
       ...this.userSelected,
@@ -52,6 +69,13 @@ export class AppComponent implements OnInit {
     console.log('usersList:', this.usersList);    
     console.log('userSelected:', this.userSelected);
     console.log('payload:', payload);
+  }
+
+  private userBeforeAndAfterDialog(originalUser: IUser, updateUser: IUser) {
+    this.dialog.open(UserBeforeAndAfterDialogComponent, {
+      minWidth: 700,
+      data: { originalUser, updateUser }
+    });
   }
   
   private getUsers() {

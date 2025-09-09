@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AngularMaterialModule } from "../angular-material.module";
 import { DirectivesModule } from "../directives/directives.module";
@@ -7,12 +8,13 @@ import { PipesModule } from "../pipes/pipes.module";
 
 import { UsersCardListComponent } from './users-card-list/users-card-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { UserBeforeAndAfterDialogComponent } from './user-before-and-after-dialog/user-before-and-after-dialog.component';
 
 @NgModule({
     declarations: [
     UsersCardListComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserBeforeAndAfterDialogComponent
   ],
     imports: [
     FormsModule,
@@ -23,7 +25,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 ],
     exports: [
         UsersCardListComponent,
-        UserFormComponent
+        UserFormComponent,
+        UserBeforeAndAfterDialogComponent
     ]
 })
 export class ComponentsModule {}

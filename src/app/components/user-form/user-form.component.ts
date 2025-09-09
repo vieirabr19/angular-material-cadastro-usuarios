@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { TGenresListResponse } from '../../types/genres-list-reponse.type';
@@ -9,7 +9,6 @@ import { IMusicForm } from '../../interfaces/user/music.interface';
 import { getPasswordStrength, PasswordStrength } from '../../utils/password-strength.util';
 import { convertDatePtBrToDateObj } from '../../utils/convert-date-pt-br-to-date-obj.util';
 import { convertDateObjToDatePtBr } from '../../utils/convert-date-obj-to-date-pt-br.util';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-user-form',
@@ -54,11 +53,11 @@ export class UserFormComponent implements OnInit, OnChanges {
     return genreFound ? genreFound?.description : '';
   }
 
-  onFilterGenres(text: string, element: IMusicForm) {
+  onFilterGenres(text: string, music: IMusicForm) {
     if (typeof text === 'number') return;
 
     const searchTerm = (text || '').toLowerCase().trim();
-    element.filteredGenresList = this.genresList.filter(genre => genre.description.toLowerCase().includes(searchTerm));
+    music.filteredGenresList = this.genresList.filter(genre => genre.description.toLowerCase().includes(searchTerm));
   }
 
   onGenreSelected(genreId: number, music: IMusicForm) {
@@ -74,10 +73,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   onSalveUser(form: NgForm) {
-    if(form.invalid){
-      this.onFocusControlInvalid(form);
-      return;
-    }
+    if(form.invalid) return this.onFocusControlInvalid(form);
 
     this.onFormSubmitedEmitt.emit();
   }

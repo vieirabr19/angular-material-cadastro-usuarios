@@ -17,4 +17,9 @@ export class StatesService {
       }, 300);
     });
   }
+
+  getStateDescription(stateId: number): string {
+    const stateDescription = BrazilianStatesListMock.find(state => state.id === stateId)?.descricaoContraida;
+    return stateDescription || '';
+  }
 }

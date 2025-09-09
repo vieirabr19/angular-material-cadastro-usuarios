@@ -16,4 +16,9 @@ export class GenresService {
       }, 300);
     });
   }
+
+  getGenreDescription(genreId: number): string{
+    const genreDescription = GenresListMock.find(genre => genre.id === genreId)?.description;
+    return genreDescription || '';
+  }
 }
