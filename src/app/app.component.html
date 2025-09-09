@@ -1,12 +1,7 @@
 <div class="container">
   <app-users-card-list [usersList]="usersList" (userSelected)="onUserSelected($event)" />
 
-  <app-user-form 
-    [genresList]="genresList" 
-    [statesList]="statesList" 
-    [userSelected]="userSelected"
-    (onFormSubmited)="onFormSubmited()"
-  />
-  
-  <button type="button" (click)="onSaveUser()">Original</button>
+  @if(userSelectedIndex !== undefined){
+  <app-user-form [genresList]="genresList" [statesList]="statesList" [userSelected]="userSelected" (onFormSubmited)="onFormSubmited()" />
+  }
 </div>

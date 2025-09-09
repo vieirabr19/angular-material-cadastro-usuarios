@@ -73,15 +73,15 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   onSalveUser(form: NgForm) {
-    if(form.invalid) return this.onFocusControlInvalid(form);
-
+    if(form.invalid) return this.setFocusControlInvalid(form);
+    
     this.onFormSubmitedEmitt.emit();
   }
-
-  onFocusControlInvalid(form: NgForm) {
+  
+  private setFocusControlInvalid(form: NgForm) {
     const invalidControlName = Object.keys(form.controls).find(name => form.controls[name]?.invalid);
     if(!invalidControlName) return;
-
+    
     const invalidControl = this._el.nativeElement.querySelector(`[name="${invalidControlName}"]`) as HTMLElement | null;
     invalidControl?.focus();
   }

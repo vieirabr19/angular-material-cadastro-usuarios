@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
   }
 
   onFormSubmited() {
-    if(!this.userSelectedIndex) return;
+    if(!this.userSelectedIndex && this.userSelectedIndex !== 0) return;
 
     const originalUser = this.usersList[this.userSelectedIndex];
     const updateUser = {
@@ -57,25 +57,22 @@ export class AppComponent implements OnInit {
       musics: this.userSelected.musics.map(({filteredGenresList, ...music}): IMusic => music)
     };
 
-    this.userBeforeAndAfterDialog(originalUser, updateUser);
+    this.userBeforeAndAfterDialog(originalUser, updateUser, this.userSelectedIndex);
   }
 
-  onSaveUser() {
-    const payload = {
-      ...this.userSelected,
-      musics: this.userSelected.musics.map(({filteredGenresList, ...music}): IMusic => music)
-    };
-
-    console.log('usersList:', this.usersList);    
-    console.log('userSelected:', this.userSelected);
-    console.log('payload:', payload);
-  }
-
-  private userBeforeAndAfterDialog(originalUser: IUser, updateUser: IUser) {
-    this.dialog.open(UserBeforeAndAfterDialogComponent, {
+  private userBeforeAndAfterDialog(originalUser: IUser, updateUser: IUser, userSelectedIndex: number) {
+    const dialogRef = this.dialog.open(UserBeforeAndAfterDialogComponent, {
       minWidth: 700,
       data: { originalUser, updateUser }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      result && this.confirmUserUpdate(updateUser, userSelectedIndex);
+    });
+  }
+
+  private confirmUserUpdate(updateUser: IUser, userSelectedIndex: number) {
+    this.usersList[userSelectedIndex] = structuredClone(updateUser);
   }
   
   private getUsers() {
